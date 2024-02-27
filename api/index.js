@@ -1,4 +1,13 @@
 import Fastify from 'fastify'
+import {Pool} from "pg"
+
+// PostgreSQL connection pool
+const pool = new Pool({
+  connectionString: process.env.POSTGRES_URL, // Ensure to set this environment variable
+  ssl: {
+    rejectUnauthorized: false,
+  },
+});
 
 const app = Fastify({
   logger: true,
@@ -7,6 +16,23 @@ const app = Fastify({
 app.get('/', async (req, reply) => {
   return reply.status(200).type('text/html').send(html)
 })
+
+app.get('/port/:portNumber', async (request, reply) => {
+  const portNumber = parseInt(request.params.portNumber, 10);
+  try {
+    const { rows } = await pool.query('SELECT description FROM overview WHERE port = $1', [portNumber]);
+    const descriptions = rows.map(row => row.description);
+    return {
+      success: true,
+      port: portNumber,
+      descriptions: descriptions,
+      count: rows.length
+    };
+  } catch (error) {
+    request.log.error(error);
+    return reply.code(500).send({ success: false, message: 'Internal server error' });
+  }
+});
 
 export default async function handler(req, reply) {
   await app.ready()
