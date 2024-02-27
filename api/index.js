@@ -50,19 +50,7 @@ const html = `
 <body>
     <div class="container">
         <h1>Welcome to Dark Mode API</h1>
-        <p>This website is running on Vercel with a REST API. You can post a port number to <code>/port/&lt;number&gt;</code> and receive a JSON response with port information.</p>
-        <p>JSON Response:</p>
-        <div class="code">
-            {
-                "port": 1234,
-                "num_entries": 3,
-                "descriptions": [
-                    "Description 1",
-                    "Description 2",
-                    "Description 3"
-                ]
-            }
-        </div>
+        <p>This website is running on Vercel with a REST API. You can post a port number to <code>/api/port/&lt;number&gt;</code> and receive a JSON response with port information.</p>
     </div>
 </body>
 </html>
