@@ -1,21 +1,25 @@
-# Fastify + Vercel
+# Simple Port API
 
-This example shows how to use Fastify with Vercel Functions.
+Very simple project that displays common services used for a specific port number. The API responds with JSON.
+Can be used to enhance output of enumeration and discovery scripts.
 
-## Demo
+## Usage
+Send HTTP-GET requests to `https://vercel-port-api.vercel.app/port/:portnumber`
 
-https://fastify-example.vercel.app/
-
-## Running Locallly
-
-```bash
-npm i
-npm i -g vercel@latest
-vercel dev
+### Example
+To query known services for port 22 send a GET request to
+```
+https://vercel-port-api.vercel.app/port/22
 ```
 
-## One-Click Deploy
-
-Deploy the example using [Vercel](https://vercel.com?utm_source=github&utm_medium=readme&utm_campaign=vercel-examples):
-
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/vercel/examples/tree/main/starter/fastify&project-name=fastify&repository-name=fastify)
+**Response**
+```json
+{
+  "success": true,
+  "port": 22,
+  "descriptions": [
+    "Secure Shell (SSH), secure logins, file transfers (scp, sftp) and port forwarding"
+  ],
+  "count": 1
+}
+```
